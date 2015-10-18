@@ -1,17 +1,26 @@
+var request = require('request');
 var express = require('express');
 var router = express.Router();
 
+var MAX_TEST_LENGTH = 100;
 var customers = {};
-
 var customersLength = 100;
-for (var i = 0; i < 100; i++) {
-    customers[i] = {
-            'id': i,
-            'firstName': 'firstName ' + i,
-            'lastName': 'lastName ' + i,
-            'address': 'Address ' + i
-        };
-}
+
+request('https://randomuser.me/api/?results=100', function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+        var testData = JSON.parse(body);
+        for (var i=0; i<MAX_TEST_LENGTH; i++) {
+            var user = testData['results'][i]['user'];
+            customers[i] = {
+                'id': i,
+                'firstName': user.name.first.toUpperCase().charAt(0) + user.name.first.substring(1),
+                'lastName': user.name.last.toUpperCase().charAt(0) + user.name.last.substring(1),
+                'email': user.email,
+                'phone': user.phone
+            };
+        }
+    }
+});
 
 router.param('name', function(req, res, next, name) {
     // do validation on name here
