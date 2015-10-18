@@ -6,6 +6,7 @@ var MAX_TEST_LENGTH = 100;
 var customers = {};
 var customersLength = 100;
 
+// Add test cases
 request('https://randomuser.me/api/?results=100', function (error, response, body) {
     if (!error && response.statusCode == 200) {
         var testData = JSON.parse(body);
