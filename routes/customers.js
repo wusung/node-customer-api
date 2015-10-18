@@ -42,7 +42,7 @@ var makeResponseText = function(data) {
     };
 
     return respText;
-}
+};
 
 /* GET customers listing. */
 router.get('/', function(req, res, next) {
@@ -54,7 +54,9 @@ router.get('/:name', function(req, res, next) {
 });
 
 router.post('/', function(req, res) {
-    customers[++customersLength] = req.body;
+    var customer = req.body;
+    customer['id'] = ++customersLength;
+    customers[customer['id']] = customer;
     res.send(makeResponseText('Insert success'));
 });
 
