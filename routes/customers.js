@@ -67,7 +67,8 @@ router.put('/:name', function(req, res, next) {
     var oldItem = customers[req.name];
     oldItem['firstName'] = req.body['firstName'] + ' ' + customersLength;
     oldItem['lastName'] = req.body['lastName'] + ' ' + customersLength;
-    oldItem['address'] = req.body['address'] + ' ' + customersLength;
+    oldItem['email'] = req.body['email'] + ' ' + customersLength;
+    oldItem['phone'] = req.body['phone'] + ' ' + customersLength;
     res.send(makeResponseText('Update success'));
 });
 
